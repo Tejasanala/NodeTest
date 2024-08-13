@@ -1,19 +1,17 @@
-import { Entity } from "electrodb"; // ORM - object relational mapping
+import { Entity } from "electrodb";
 import { client } from "../util/db.connention.js";
 
-const Orders = new Entity(
+const Cart = new Entity(
   {
     model: {
-      entity: "Order",
+      entity: "Cart",
       version: "1",
-      service: "OrderService",
+      service: "CartService",
     },
     attributes: {
       userId: {
         type: "string",
-      },
-      orderId: {
-        type: "string",
+        required: true,
       },
       products: {
         type: "list",
@@ -22,21 +20,18 @@ const Orders = new Entity(
           properties: {
             productId: {
               type: "string",
+              required: true,
             },
             quantity: {
               type: "number",
+              required: true,
             },
           },
         },
       },
       totalPrice: {
         type: "number",
-      },
-      orderDate: {
-        type: "string",
-      },
-      status: {
-        type: "string",
+        required: true,
       },
     },
     indexes: {
@@ -44,18 +39,16 @@ const Orders = new Entity(
         pk: {
           // highlight-next-line
           field: "pk",
-          facets: ["orderId"],
+          facets: ["userId"],
         },
         sk: {
-          // highlight-next-line
           field: "sk",
           facets: [],
         },
       },
     },
-    // add your DocumentClient and TableName as a second parameter
   },
-  { client, table: "orders" }
+  { client, table: "cart" }
 );
 
-export { Orders };
+export { Cart };

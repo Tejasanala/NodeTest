@@ -1,10 +1,10 @@
 import {
   GetorderById,
   Getorders,
-  DeleteordersById,
-  createordersById,
-  UpdateordersById,
-} from "../service/orders.service.js";
+  DeleteorderById,
+  createorderById,
+  UpdateorderById,
+} from "../service/order.service.js";
 
 async function GetorderCtr(request, response) {
   //we can also write html codes in send .. it can render the file
@@ -28,7 +28,7 @@ async function DeleteorderByIdCtr(request, response) {
 
   // const res = movies.filter((findd) => findd.id != id);
   // const data = await Movies.query.primary({ movieId: `${id}` }).go();
-  const data = await DeleteordersById(id);
+  const data = await DeleteorderById(id);
   console.log(data.data);
   if (data) {
     response.send({
@@ -43,7 +43,7 @@ async function DeleteorderByIdCtr(request, response) {
 async function createorderByIdCtr(request, response) {
   const data = request.body;
 
-  await createordersById(data);
+  await createorderById(data);
 
   response.send(data);
 }
@@ -55,7 +55,7 @@ async function UpdateorderByIdCtr(request, response) {
 
   const existingData = await GetorderById();
   if (existingData.data) {
-    const res = await UpdateordersById(existingData, updatedData);
+    const res = await UpdateorderById(existingData, updatedData);
     console.log(res.data);
     response.send(res.data);
   } else {
